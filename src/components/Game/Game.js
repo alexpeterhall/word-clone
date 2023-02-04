@@ -1,9 +1,10 @@
 import React from 'react'
 import GuessInput from '../GuessInput/GuessInput'
-import ShowGuesses from '../ShowGuesses/ShowGuesses'
+import GuessResults from '../GuessResults/GuessResults'
 
 import { sample } from '../../utils'
 import { WORDS } from '../../data'
+import { NUM_OF_GUESSES_ALLOWED } from '../../constants'
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS)
@@ -14,12 +15,16 @@ function Game() {
   const [guesses, setGuesses] = React.useState([])
 
   function saveGuess(guess) {
+    if (guesses.length === NUM_OF_GUESSES_ALLOWED) {
+      window.alert('Maximum number of guesses reached!')
+      return
+    }
     setGuesses([...guesses, guess])
   }
 
   return (
     <>
-      <ShowGuesses guesses={guesses} />
+      <GuessResults guesses={guesses} />
       <GuessInput saveGuess={saveGuess} />
     </>
   )
