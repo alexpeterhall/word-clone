@@ -1,21 +1,14 @@
 import React from 'react'
 import Guess from '../Guess/Guess'
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants'
+import { range } from '../../utils'
 
 function GuessResults({ guesses, answer }) {
-  const resultGrid = [...guesses]
-  if (resultGrid.length < NUM_OF_GUESSES_ALLOWED) {
-    for (let i = resultGrid.length; i < NUM_OF_GUESSES_ALLOWED; i++) {
-      resultGrid.push('')
-    }
-  }
-
   return (
     <div className='guess-results'>
-      {/*Index as key should be safe here*/}
-      {resultGrid.map((guess, index) => {
-        return <Guess key={index} guess={guess} answer={answer} />
-      })}
+      {range(NUM_OF_GUESSES_ALLOWED).map((num) => (
+        <Guess key={num} guess={guesses[num]} answer={answer} />
+      ))}
     </div>
   )
 }
