@@ -1,6 +1,6 @@
 import React from 'react'
 
-function GuessInput({ handleSaveGuess }) {
+function GuessInput({ handleSaveGuess, finalResult }) {
   const [tentativeGuess, setTentativeGuess] = React.useState('')
 
   function handleSubmit(event) {
@@ -9,7 +9,6 @@ function GuessInput({ handleSaveGuess }) {
       window.alert('Guess must be exactly 5 characters!')
       return
     }
-    console.log({ tentativeGuess })
     handleSaveGuess(tentativeGuess)
     setTentativeGuess('')
   }
@@ -22,6 +21,7 @@ function GuessInput({ handleSaveGuess }) {
       }}>
       <label htmlFor='guess-input'>Enter guess:</label>
       <input
+        disabled={finalResult !== 'running'}
         id='guess-input'
         type='text'
         required
